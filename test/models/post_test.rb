@@ -4,6 +4,6 @@ class PostTest < ActiveSupport::TestCase
   def test_saved_changed
     post = posts(:one)
     post.update(title: "hello!")
-    assert_empty post.saved_changes
+    assert_empty post.changes
   end
 end
