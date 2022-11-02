@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To demo the bug that was revealed by https://github.com/rails/rails/pull/46282.
 
-Things you may want to cover:
+Steps to repro;
 
-* Ruby version
+* Clone the repo
+* Run `bundle`
+* Run `bin/rails db:migrate`
+* Run `bin/rails test/models/post_test.rb`
 
-* System dependencies
+Failure:
 
-* Configuration
+```
+Failure:
+PostTest#test_saved_changed [/Users/eileencodes/src/github.com/Shopify/rails_apps/saved_changes_repro/test/models/post_test.rb:7]:
+Expected {"title"=>["MyString", "hello!"], "updated_at"=>[Wed, 02 Nov 2022 21:14:40.966188000 UTC +00:00, Wed, 02 Nov 2022 21:14:40.978256000 UTC +00:00]} to be empty.
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Test should pass. There's an interaction between the default attributes set by `activerecord-typestore` and the cahnges in this Rails PR.
